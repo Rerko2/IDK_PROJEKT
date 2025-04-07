@@ -2,12 +2,13 @@
 using namespace std;
 
 int main(){
-int a,b;
+int a,b,P;
 cout << "výtej v této dobrodružné hře! ";
 cout << "\nJaké je tvé jmáno dobrodruhu? ";
-cin >> a
+cin >> a;
 cout << "\n\nZajmavé jméno, opravdu zajmavé. No tak se vydáme na toto dobrodružství" << a << " ";
-cout << "Dostali jsme se na křižovatku levý směr vede do lesa, pravý do malé vesničky" << "\nKam se vydáme? [P/L]";
+cout << "Dostali jsme se na křižovatku levý směr vede do lesa, pravý do malé vesničky" << "\nKam se vydáme? [P=1/L=2]";
+cin >> P; 
 if(b==P){ cout << "Zajmavé rozhodnutí, jdeme do vesničky";
   }else{ cout << "Zajmavé rozhodnutí, jdeme do lesa";
     }
