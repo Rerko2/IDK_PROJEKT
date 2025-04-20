@@ -11,21 +11,21 @@ void boj(int &Zivoty, int Damage) {
     string jmenoBandity;
 
     switch (typBandity) {
-                case 0:
-                jmenoBandity = "Zloděj";
-                banditaZivoty = 40;
-                banditaDamage = 10;
-                break;
-                case 1:
-                jmenoBandity = "Žoldák";
-                banditaZivoty = 70;
-                banditaDamage = 20;
-                break;
-                case 2:
-                jmenoBandity = "Vrah";
-                banditaZivoty = 55;
-                banditaDamage = 30;
-                break;
+        case 0:
+            jmenoBandity = "Zloděj";
+            banditaZivoty = 40;
+            banditaDamage = 10;
+            break;
+        case 1:
+            jmenoBandity = "Žoldák";
+            banditaZivoty = 70;
+            banditaDamage = 20;
+            break;
+        case 2:
+            jmenoBandity = "Vrah";
+            banditaZivoty = 55;
+            banditaDamage = 30;
+            break;
 }
 cout << "\nBojuješ s nepřítelem: " << jmenoBandity;
 cout << "\nMá " << banditaZivoty << " životů a útočí za " << banditaDamage << ".\n";
@@ -34,17 +34,17 @@ cout << "\nMá " << banditaZivoty << " životů a útočí za " << banditaDamage
         banditaZivoty -= Damage;
         cout << "\nZpůsobil jsi " << Damage << " poškození. Banditovi zbývá " 
              << (banditaZivoty > 0 ? banditaZivoty : 0) << " HP.";
-            if (banditaZivoty <= 0) {
-            cout << "\n\nBandita padá k zemi. Přežil jsi boj!" << endl;
-            return;
-            }
-            cout << "\nBandita útočí!";
-            Zivoty -= banditaDamage;
-            cout << "\nUtrpěl jsi " << banditaDamage << " poškození. Zbývá ti " 
-                 << (Zivoty > 0 ? Zivoty : 0) << " HP.";
-            if (Zivoty <= 0) {
-                cout << "\n\nTvé tělo padá k zemi... Bandité zvítězili." << "\n\nGAME OVER" << endl;
-                exit(0);
+        if (banditaZivoty <= 0) {
+        cout << "\n\nBandita padá k zemi. Přežil jsi boj!" << endl;
+        return;
+        }
+        cout << "\nBandita útočí!";
+        Zivoty -= banditaDamage;
+        cout << "\nUtrpěl jsi " << banditaDamage << " poškození. Zbývá ti " 
+             << (Zivoty > 0 ? Zivoty : 0) << " HP.";
+        if (Zivoty <= 0) {
+            cout << "\n\nTvé tělo padá k zemi... Bandité zvítězili." << "\n\nGAME OVER" << endl;
+            exit(0);
         }
     }
 }
