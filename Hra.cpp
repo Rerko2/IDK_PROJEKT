@@ -11,21 +11,21 @@ void boj(int &Zivoty, int Damage) {
     string jmenoBandity;
 
     switch (typBandity) {
-        case 0:
-            jmenoBandity = "Zloděj";
-            banditaZivoty = 40;
-            banditaDamage = 10;
-            break;
-        case 1:
-            jmenoBandity = "Žoldák";
-            banditaZivoty = 70;
-            banditaDamage = 20;
-            break;
-        case 2:
-            jmenoBandity = "Vrah";
-            banditaZivoty = 55;
-            banditaDamage = 30;
-            break;
+                case 0:
+                jmenoBandity = "Zloděj";
+                banditaZivoty = 40;
+                banditaDamage = 10;
+                break;
+                case 1:
+                jmenoBandity = "Žoldák";
+                banditaZivoty = 70;
+                banditaDamage = 20;
+                break;
+                case 2:
+                jmenoBandity = "Vrah";
+                banditaZivoty = 55;
+                banditaDamage = 30;
+                break;
 }
 cout << "\nBojuješ s nepřítelem: " << jmenoBandity;
 cout << "\nMá " << banditaZivoty << " životů a útočí za " << banditaDamage << ".\n";
