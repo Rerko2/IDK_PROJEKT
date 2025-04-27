@@ -93,8 +93,34 @@ cin >> Rozhodnuti;
   if(Rozhodnuti==1){ cout << "\nZajmavé rozhodnutí, jdeme do vesničky";
                    cout << "\nVesnice vypadá opuštěně, chceš ji vyrabovat? [A=1/N=0]";
                    cin >> Rozhodnuti2;
-                      if(Rozhodnuti2==1){ cout << "\nBěhem tvého rabování se objevili vesničani s jejich iron golemem, boj byl zbytečný, byl jsi zabit."<< "\n\nGAME OVER" <<endl;}
-                      else{ cout << "\nMoudré rozhodnutí, protože se během chvilky objevili vesničani s jejich iron golemem, naštěstí byli přátelští a moohl jsi pokračovat dál ve své cestě";} //-------------------------------------------------------------------------------------
+                      if(Rozhodnuti2==1){ cout << "\nBěhem tvého rabování se objevili vesničani s jejich iron golemem, boj byl zbytečný, byl jsi zabit."<< "\n\nGAME OVER" <<endl;
+                          else{ cout << "\nMoudré rozhodnutí, protože se během chvilky objevili vesničani s jejich iron golemem, naštěstí byli přátelští a moohl jsi pokračovat dál ve své cestě"; 
+                            cout << "\n Chceš ve vesnici zůstat a pomoci místním? [A=1/N=0]";
+                            cin >> Rozhodnuti5;
+                            if(Rozhodnuti5==1){
+                                cout << "\nRozhodl ses zůstat ve vesnici a pomoci místním."<< "\nMístní tě přijali mezi sebe a nabídli ti přístřeší a zásoby na cestu." << "\nPo několika dnech odpočinku se rozhodneš pokračovat dál na svou cestu.";
+                                cout << "\nNa okraji vesnice potkáš kupce, který ti nabízí zdarma lepší zbraň. Přijmeš jeho nabídku? [A=1/N=0]";
+                                    int Rozhodnuti6;
+                                        cin >> Rozhodnuti6;
+                                        if (Rozhodnuti6 == 1) {
+                                        cout << "\nPřijal jsi vylepšenou zbraň! Tvá útočná síla se zvýšila.";
+                                        Damage += 20;
+                                         } else {
+                                            cout << "\nRozhodl ses ponechat svou původní výbavu a pokračovat bez nové zbraně.";
+                                            }
+                                            cout << "\nPo opuštění vesnice se vydáváš do hustého lesa.";
+                                            cout << "\nCesta je klidná, dokud tě nenapadne bandita!";
+                                            boj(Zivoty, Damage);
+
+                                                cout << "\nPo vítězství nad banditou nacházíš starou mapu ukazující skrytý poklad v horách.";//-------------------------------------------------------------------------------------
+                            } else {
+                                cout << "\nRozhodl ses pokračovat dál na vlastní pěst.";
+                                cout << "\nPo pár hodinách chůze tě v lese napadne bandita!";
+                                boj(Zivoty, Damage);
+
+                                cout << "\nPo vítězství nad banditou se ti podaří najít cestu ven z lesa.";
+                                cout << "\nDobrodružství však stále pokračuje...\n";
+                                   }
   }else{ cout << "\nZajmavé rozhodnutí, jdeme do lesa";
         cout << "\nLes je tichý a ponurý, ale po chvíli slyšíš zvláštní zvuky.";
         cout << "\nNarazíš na starého muže sedícího u ohně. Chceš se s ním promluvit? [A=1/N=0]";
