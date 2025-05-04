@@ -88,55 +88,94 @@ switch(Postava){
         Zivoty = 85;
         Damage = 55;
 }
+
 cout << "\nDostali jsme se na křižovatku levý směr vede do lesa, pravý do malé vesničky" << "\nKam se vydáme? [P=1/L=2]";
 cin >> Rozhodnuti;
+
   if(Rozhodnuti==1){ cout << "\nZajmavé rozhodnutí, jdeme do vesničky";
                    cout << "\nVesnice vypadá opuštěně, chceš ji vyrabovat? [A=1/N=0]";
                    cin >> Rozhodnuti2;
                       if(Rozhodnuti2==1){ cout << "\nBěhem tvého rabování se objevili vesničani s jejich iron golemem, boj byl zbytečný, byl jsi zabit."<< "\n\nGAME OVER" <<endl;
-                          else{ cout << "\nMoudré rozhodnutí, protože se během chvilky objevili vesničani s jejich iron golemem, naštěstí byli přátelští a moohl jsi pokračovat dál ve své cestě"; 
-                            cout << "\n Chceš ve vesnici zůstat a pomoci místním? [A=1/N=0]";
-                            cin >> Rozhodnuti5;
+                      }else{ cout << "\nMoudré rozhodnutí, protože se během chvilky objevili vesničani s jejich iron golemem, naštěstí byli přátelští a moohl jsi pokračovat dál ve své cestě"; 
+                      cout << "\n Chceš ve vesnici zůstat a pomoci místním? [A=1/N=0]";
+                      cin >> Rozhodnuti5;}
                             if(Rozhodnuti5==1){
-                                cout << "\nRozhodl ses zůstat ve vesnici a pomoci místním."<< "\nMístní tě přijali mezi sebe a nabídli ti přístřeší a zásoby na cestu." << "\nPo několika dnech odpočinku se rozhodneš pokračovat dál na svou cestu.";
-                                cout << "\nNa okraji vesnice potkáš kupce, který ti nabízí zdarma lepší zbraň. Přijmeš jeho nabídku? [A=1/N=0]";
+                            cout << "\nRozhodl ses zůstat ve vesnici a pomoci místním."<< "\nMístní tě přijali mezi sebe a nabídli ti přístřeší a zásoby na cestu." << "\nPo několika dnech odpočinku se rozhodneš pokračovat dál na svou cestu.";
+                            cout << "\nNa okraji vesnice potkáš kupce, který ti nabízí zdarma lepší zbraň. Přijmeš jeho nabídku? [A=1/N=0]";
+                            
+                              }else{
                                     int Rozhodnuti6;
-                                        cin >> Rozhodnuti6;
-                                        if (Rozhodnuti6 == 1) {
-                                        cout << "\nPřijal jsi vylepšenou zbraň! Tvá útočná síla se zvýšila.";
-                                        Damage += 20;
-                                         } else {
-                                            cout << "\nRozhodl ses ponechat svou původní výbavu a pokračovat bez nové zbraně.";
-                                            }
-                                            cout << "\nPo opuštění vesnice se vydáváš do hustého lesa.";
-                                            cout << "\nCesta je klidná, dokud tě nenapadne bandita!";
-                                            boj(Zivoty, Damage);
+                                    cin >> Rozhodnuti6;
+                                    if (Rozhodnuti6 == 1) {
+                                    cout << "\nPřijal jsi vylepšenou zbraň! Tvá útočná síla se zvýšila.";
+                                    Damage += 20;
+                                    } else {
+                                    cout << "\nRozhodl ses ponechat svou původní výbavu a pokračovat bez nové zbraně.";
+                                    }
+                                    }
+                                        cout << "\nPo opuštění vesnice se vydáváš do hustého lesa.";
+                                        cout << "\nCesta je klidná, dokud tě nenapadne bandita!";
+                                        boj(Zivoty, Damage);
+                                            cout << "\nPo vítězství nad banditou nacházíš starou mapu ukazující skrytý poklad v horách.";
+                                            cout << "\nVydáváš se tedy na nebezpečnou cestu do hor...";
 
-                                                cout << "\nPo vítězství nad banditou nacházíš starou mapu ukazující skrytý poklad v horách.";//-------------------------------------------------------------------------------------
-                            } else {
-                                cout << "\nRozhodl ses pokračovat dál na vlastní pěst.";
-                                cout << "\nPo pár hodinách chůze tě v lese napadne bandita!";
-                                boj(Zivoty, Damage);
+                                            cout << "\nPo několika dnech narazíš na jeskyni ukrytou mezi skalami.";
+                                            cout << "\nU vchodu do jeskyně stojí tajemný rytíř. Varuje tě, že poklad je prokletý a strážený drakem.";
+                                            
+                                            cout << "\nBez možnosti úniku vstupuješ do jeskyně. Z temnoty se vynoří drak!";
+                                            cout << "\nJe to obrovské monstrum s 200 životy a útočí za 35.";
 
-                                cout << "\nPo vítězství nad banditou se ti podaří najít cestu ven z lesa.";
-                                cout << "\nDobrodružství však stále pokračuje...\n";
-                                   }
-  }else{ cout << "\nZajmavé rozhodnutí, jdeme do lesa";
-        cout << "\nLes je tichý a ponurý, ale po chvíli slyšíš zvláštní zvuky.";
-        cout << "\nNarazíš na starého muže sedícího u ohně. Chceš se s ním promluvit? [A=1/N=0]";
-        cin >> Rozhodnuti3;
-        if(Rozhodnuti3==1){
-          cout << "\nStarý muž ti nabídne jídlo a varuje tě před nebezpečím hlouběji v lese.";
-          cout << "\nZískal jsi nové informace. Pokračuješ dál a vyhíbáš se úseku s nebezpečím."; //-----------------------------------------------------------------------------
-        } else {
-          cout << "\nIgnoruješ starce a pokračuješ dál. Po pár krocích tě přepadne skupina banditů!";
-          cout << "\nPřiprav se na boj! Máš šanci se bránit. Bojuješ? [A=1/N=0]";
-          cin >> Rozhodnuti4;
-                if(Rozhodnuti4==1){ 
-                  boj(Zivoty, Damage);
-                  } else {
-                  cout << "\nSnažíš se utéct, ale bandité tě rychle doženou.";
-                  cout << "\nByl jsi poražen a okraden. Dobrodružství pro tebe zde končí." << "\n\nGAME OVER" << endl;}
+                                            int drakZivoty = 200;
+                                            int drakDamage = 35;
+
+                                                while (Zivoty > 0 && drakZivoty > 0) {
+                                                    cout << "\nÚtočíš na draka!";
+                                                    drakZivoty -= Damage;
+                                                    cout << "\nZpůsobil jsi " << Damage << " poškození. Drakovi zbývá " << (drakZivoty > 0 ? drakZivoty : 0) << " HP.";
+                                                
+                                                    if (drakZivoty <= 0) {
+                                                        cout << "\n\nZasazuješ poslední ránu! Drak padá k zemi a před tebou se otevírá poklad!";
+                                                        cout << "\nNacházíš magické artefakty, zlato a legendární zbraň.";
+                                                        Damage += 50;
+                                                        cout << "\nStáváš se hrdinou známým po celém světě!";
+                                                        cout << "\nAle stále na tebe čeká další bobrodružství";
+                                                        //-----------------------------------------------------------------------------
+                                                    }
+                                                
+                                                    cout << "\nDrak útočí!";
+                                                    Zivoty -= drakDamage;
+                                                    cout << "\nUtrpěl jsi " << drakDamage << " poškození. Zbývá ti " << (Zivoty > 0 ? Zivoty : 0) << " HP.";
+                                                
+                                                    if (Zivoty <= 0) {
+                                                        cout << "\n\nDrak tě spálil na popel... Poklad zůstává nedotčen." << "\n\nGAME OVER" << endl;
+                                                        exit(0);
+                                                    }
+                                                }
+                                
+    } else {
+    cout << "\nRozhodl ses pokračovat dál na vlastní pěst.";
+    cout << "\nPo pár hodinách chůze tě v lese napadne bandita!";
+    boj(Zivoty, Damage);
+
+    cout << "\nPo vítězství nad banditou se ti podaří najít cestu ven z lesa.";
+    cout << "\nDobrodružství však stále pokračuje...\n";
+       }
+          }else{ cout << "\nZajmavé rozhodnutí, jdeme do lesa";
+                cout << "\nLes je tichý a ponurý, ale po chvíli slyšíš zvláštní zvuky.";
+                cout << "\nNarazíš na starého muže sedícího u ohně. Chceš se s ním promluvit? [A=1/N=0]";
+                cin >> Rozhodnuti3;
+                if(Rozhodnuti3==1){
+                  cout << "\nStarý muž ti nabídne jídlo a varuje tě před nebezpečím hlouběji v lese.";
+                  cout << "\nZískal jsi nové informace. Pokračuješ dál a vyhíbáš se úseku s nebezpečím."; //-----------------------------------------------------------------------------
+                } else {
+                  cout << "\nIgnoruješ starce a pokračuješ dál. Po pár krocích tě přepadne skupina banditů!";
+                  cout << "\nPřiprav se na boj! Máš šanci se bránit. Bojuješ? [A=1/N=0]";
+                  cin >> Rozhodnuti4;
+                        if(Rozhodnuti4==1){ 
+                          boj(Zivoty, Damage);
+                          } else {
+                          cout << "\nSnažíš se utéct, ale bandité tě rychle doženou.";
+                          cout << "\nByl jsi poražen a okraden. Dobrodružství pro tebe zde končí." << "\n\nGAME OVER" << endl;}
             }
       }
 }
