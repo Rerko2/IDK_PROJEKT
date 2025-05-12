@@ -121,6 +121,8 @@ int main() {
             if (Rozhodnuti6 == 1) {
                 cout << "\nPřijal jsi vylepšenou zbraň! Tvá útočná síla se zvýšila.";
                 Damage += 20;
+                Zivoty += 50;
+                cout << "\nTvé životy se zvýšily o 50! Zbývá ti nyní " << Zivoty << " životů." << endl;
             } else {
                 cout << "\nRozhodl ses ponechat svou původní výbavu a pokračovat bez nové zbraně.";
             }
@@ -182,6 +184,8 @@ int main() {
             boj(Zivoty, Damage);
     
             cout << "\nPo vítězství nad banditou nacházíš starou mapu ukazující skrytý poklad v horách.";
+            cout <<"\nNavíc jsi u mrtvého bandity, v jeho batohu našel poušn který přidává neznámé množství životů, neváháš a rovnou ho vyžungneš ho na jeden zátah";
+            Zivoty += 50;
             cout << "\nVydáváš se tedy na nebezpečnou cestu do hor...";
     
             cout << "\nPo několika dnech narazíš na jeskyni ukrytou mezi skalami.";
