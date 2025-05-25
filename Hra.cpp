@@ -157,9 +157,56 @@ int main() {
                 cout << "\nNacházíš magické artefakty, zlato a legendární zbraň.";
                 Damage += 50;
                 cout << "\nStáváš se hrdinou známým po celém světě!";
-                cout << "\nAle stále na tebe čeká další dobrodružství...\n"; //------------------------------------------------------------------------------------------
-            }
+                cout << "\nAle stále na tebe čeká další dobrodružství...\n";
+                cout << "\nPo odpočinku v dračí jeskyni, plné lesku pokladu, tě probudí podivné světlo.";
+                cout << "\nMagický portál se otevřel uprostřed jeskyně. Cítíš, že tě volá... Chceš do něj vstoupit? [A=1/N=0]: ";
+                int Rozhodnuti7;
+                cin >> Rozhodnuti7;
 
+                if (Rozhodnuti7 == 1) {
+                    cout << "\nVstoupil jsi do portálu a rázem se ocitáš v tajemné krajině zvané 'Zrcadlový svět'.";
+                    cout << "\nZde vše vypadá obráceně, i tvoje zbraně a síly se zdají být zesílené, ale něco je jinak...";
+
+                    cout << "\nZ mlhy vystupuje *Temný dvojník* – jsi to ty, ale zlý!";
+                    int dvojnikZivoty = Zivoty + 30;
+                    int dvojnikDamage = Damage - 10;
+
+                    cout << "\nTemný " << Jmeno << " má " << dvojnikZivoty << " životů a útočí za " << dvojnikDamage << ".";
+
+                    while (Zivoty > 0 && dvojnikZivoty > 0) {
+                        cout << "\nÚtočíš na Temného dvojníka!";
+                        dvojnikZivoty -= Damage;
+                        cout << "\nZpůsobil jsi " << Damage << " poškození. Dvojníkovi zbývá " 
+                             << (dvojnikZivoty > 0 ? dvojnikZivoty : 0) << " HP.";
+
+                        if (dvojnikZivoty <= 0) {
+                            cout << "\n\nTvůj temný odraz se rozpadá v prach. Získáváš zpět svou plnou sílu a nové znalosti magie!";
+                            Zivoty += 30;
+                            Damage += 30;
+                            break;
+                        }
+
+                        cout << "\nTemný dvojník útočí!";
+                        Zivoty -= dvojnikDamage;
+                        cout << "\nUtrpěl jsi " << dvojnikDamage << " poškození. Zbývá ti " 
+                             << (Zivoty > 0 ? Zivoty : 0) << " HP.";
+
+                        if (Zivoty <= 0) {
+                            cout << "\n\nTvůj stín tě přemohl... Navždy zůstaneš uvězněn v Zrcadlovém světě." << "\n\nGAME OVER" << endl;
+                            return 0;
+                        }
+                    }
+
+                    cout << "\nPo poražení svého dvojníka se portál znovu otevře a přenese tě zpět na povrch.";
+                    cout << "\nJsi silnější než kdy dřív a svět před tebou je plný nových možností...";
+                } else {
+                    cout << "\nRozhodl ses portál ignorovat. Poklad odneseš zpět do civilizace, kde budeš žít v luxusu a slávě.";
+                    cout << "\nTvůj příběh se stal legendou, ale kdo ví, co se mohlo stát za tím portálem..."; //------------------------------------------------------------------------------------------
+                }
+                
+            }
+                
+            
             cout << "\nDrak útočí!";
             Zivoty -= drakDamage;
             cout << "\nUtrpěl jsi " << drakDamage << " poškození. Zbývá ti " << (Zivoty > 0 ? Zivoty : 0) << " HP.";
