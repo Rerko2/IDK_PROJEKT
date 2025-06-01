@@ -17,273 +17,298 @@ void boj(int &Zivoty, int Damage) {
             banditaDamage = 10;
             break;
         case 1:
-            jmenoBandity = "Žoldák";
-            banditaZivoty = 70;
+            jmenoBandity = "Vrah";
+            banditaZivoty = 60;
             banditaDamage = 20;
             break;
         case 2:
-            jmenoBandity = "Vrah";
-            banditaZivoty = 55;
+            jmenoBandity = "Velitel";
+            banditaZivoty = 80;
             banditaDamage = 30;
             break;
     }
-    cout << "\nBojuješ s nepřítelem: " << jmenoBandity;
-    cout << "\nMá " << banditaZivoty << " životů a útočí za " << banditaDamage << ".\n";
 
+    cout << "\nPřišel " << jmenoBandity << " (HP: " << banditaZivoty << ", Damage: " << banditaDamage << ")\n";
+
+    bool hracNaTahu = true;
     while (Zivoty > 0 && banditaZivoty > 0) {
-        cout << "\nÚtočíš na banditu!";
-        banditaZivoty -= Damage;
-        cout << "\nZpůsobil jsi " << Damage << " poškození. Banditovi zbývá " 
-             << (banditaZivoty > 0 ? banditaZivoty : 0) << " HP.";
-        if (banditaZivoty <= 0) {
-            cout << "\n\nBandita padá k zemi. Přežil jsi boj!" << endl;
+        if (hracNaTahu) {
+            cout << "Útočíš na " << jmenoBandity << " za " << Damage << " poškození.\n";
+            banditaZivoty -= Damage;
+            if (banditaZivoty <= 0) {
+                cout << jmenoBandity << " padl.\n";
+                break;
+            }
+        } else {
+            cout << jmenoBandity << " útočí za " << banditaDamage << ".\n";
+            Zivoty -= banditaDamage;
+            if (Zivoty <= 0) {
+                cout << "Zemřel jsi. GAME OVER\n";
+                exit(0);
+            }
+        }
+        hracNaTahu = !hracNaTahu;
+    }
+
+    cout << "Vyhrál jsi souboj!\n";
+}
+
+void vyberPostavu(int &Zivoty, int &Damage) {
+    int Postava;
+    cout << "Vyber si postavu:\n1 - Válečník (Životy 100, Damage 80)\n2 - Zloděj (Životy 70, Damage 120)\n3 - Lovec (Životy 85, Damage 100)\nTvoje volba: ";
+    cin >> Postava;
+
+    switch(Postava) {
+        case 1: Zivoty=100; Damage=80; break;
+        case 2: Zivoty=70; Damage=120; break;
+        case 3: Zivoty=85; Damage=100; break;
+        default:
+            cout << "Špatná volba, budeš Lovec.\n";
+            Zivoty=85; Damage=100;
+    }
+}
+
+void vesnice1(int &Zivoty, int &Damage, int &zlato) {
+    cout << "\nPrvní vesnice, máš " << zlato << " zlata. Můžeš doplnit životy (20 zlata), nebo zvýšit Damage (50 zlata).\n";
+    int volbaVesnice;
+    do {
+        cout << "1 - doplnit životy o 30, 2 - zvýšit damage o 5, 0 - odejít: ";
+        cin >> volbaVesnice;
+        if (volbaVesnice == 1) {
+            if (zlato >= 20) {
+                Zivoty += 30;
+                zlato -= 20;
+                cout << "Doplnil jsi životy, máš nyní " << Zivoty << " HP.\n";
+            } else cout << "Nemáš dost zlata.\n";
+        } else if (volbaVesnice == 2) {
+            if (zlato >= 50) {
+                Damage += 5;
+                zlato -= 50;
+                cout << "Zvýšil jsi Damage na " << Damage << ".\n";
+            } else cout << "Nemáš dost zlata.\n";
+        }
+    } while (volbaVesnice != 0);
+}
+
+void vesnice2(int &Zivoty, int &zlato) {
+    cout << "\nDorazil jsi do vesnice, kde můžeš doplnit životy za 20 zlata.\n";
+    cout << "Doplnit životy? (1 - ano, 0 - ne): ";
+    int volba2; cin >> volba2;
+    if(volba2 == 1) {
+        if(zlato >= 20) {
+            Zivoty += 40;
+            zlato -= 20;
+            cout << "Doplnil jsi životy, máš " << Zivoty << " HP.\n";
+        } else cout << "Nemáš dost zlata.\n";
+    }
+}
+
+void bojVicMonstru(int &Zivoty, int Damage, int pocetMonstru) {
+    string jmena[] = {"Goblin", "Skelet", "Ork", "Pavoučí démon", "Nemrtvý voják", "Bandita"};
+    int hpMonstra[3];
+    int damageMonstra[3];
+    string jmenaMonstra[3];
+
+    for(int i=0; i<pocetMonstru; i++) {
+        int idx = rand() % 6;
+        jmenaMonstra[i] = jmena[idx];
+        hpMonstra[i] = 40 + rand() % 40;
+        damageMonstra[i] = 10 + rand() % 20;
+        cout << "Přišel " << jmenaMonstra[i] << " (HP: " << hpMonstra[i] << ", Damage: " << damageMonstra[i] << ")\n";
+    }
+
+    bool hracNaTahu = true;
+    while(Zivoty > 0) {
+        if(hracNaTahu) {
+            bool utocil = false;
+            for(int i=0; i<pocetMonstru; i++) {
+                if(hpMonstra[i] > 0) {
+                    cout << "Útočíš na " << jmenaMonstra[i] << " za " << Damage << " poškození.\n";
+                    hpMonstra[i] -= Damage;
+                    if(hpMonstra[i] <= 0) cout << jmenaMonstra[i] << " padl.\n";
+                    utocil = true;
+                    break;
+                }
+            }
+            if(!utocil) break;
+        } else {
+            cout << "Monstra útočí!\n";
+            for(int i=0; i<pocetMonstru; i++) {
+                if(hpMonstra[i] > 0) {
+                    cout << jmenaMonstra[i] << " útočí za " << damageMonstra[i] << ".\n";
+                    Zivoty -= damageMonstra[i];
+                    if(Zivoty <= 0) {
+                        cout << "Zemřel jsi. GAME OVER\n";
+                        exit(0);
+                    }
+                }
+            }
+        }
+        hracNaTahu = !hracNaTahu;
+    }
+    cout << "Vyhrál jsi nad všemi monstry!\n";
+}
+
+void soubojKlonem(int &Zivoty, int &Damage, const string& Jmeno) {
+    cout << "\nVstupuje do arény tvůj temný dvojník!\n";
+    int klonHP = Zivoty + 30;
+    int klonDamage = (Damage > 10) ? Damage - 10 : 5;
+
+    cout << "Temný " << Jmeno << " má " << klonHP << " HP a útočí za " << klonDamage << ".\n";
+
+    while(Zivoty > 0 && klonHP > 0) {
+        cout << "\nÚtočíš na klona za " << Damage << " poškození.\n";
+        klonHP -= Damage;
+        if(klonHP <= 0) {
+            cout << "\nPorazil jsi svého temného dvojníka!\n";
+            Zivoty += 30;
+            Damage += 30;
+            cout << "Získáváš 30 HP a 30 Damage navíc! Nyní máš " << Zivoty << " HP a " << Damage << " Damage.\n";
             return;
         }
-
-        cout << "\nBandita útočí!";
-        Zivoty -= banditaDamage;
-        cout << "\nUtrpěl jsi " << banditaDamage << " poškození. Zbývá ti " 
-             << (Zivoty > 0 ? Zivoty : 0) << " HP.";
-        if (Zivoty <= 0) {
-            cout << "\n\nTvé tělo padá k zemi... Bandité zvítězili." << "\n\nGAME OVER" << endl;
+        cout << "Temný dvojník útočí za " << klonDamage << " poškození.\n";
+        Zivoty -= klonDamage;
+        if(Zivoty <= 0) {
+            cout << "Tvůj temný dvojník tě porazil... GAME OVER\n";
             exit(0);
+        }
+        cout << "Zbývá ti " << Zivoty << " HP.\n";
+    }
+}
+
+void soubojeMiniBosse(int &Zivoty, int Damage, int &zlato, const string& Jmeno) {
+    struct Boss {
+        string jmeno;
+        int hp;
+        int dmg;
+    };
+
+    Boss miniBosse[] = {
+        {"Drak", 200, 35},
+        {"Temný klon", 0, 0}
+    };
+
+    // Souboj s Drakem
+    cout << "\nMini-boss #1 - " << miniBosse[0].jmeno << "\n";
+    int bossHP = miniBosse[0].hp;
+    int bossDamage = miniBosse[0].dmg;
+    while(Zivoty > 0 && bossHP > 0) {
+        cout << "\nÚtočíš na " << miniBosse[0].jmeno << " za " << Damage << " poškození.\n";
+        bossHP -= Damage;
+        if(bossHP <= 0) break;
+        cout << miniBosse[0].jmeno << " útočí za " << bossDamage << " poškození.\n";
+        Zivoty -= bossDamage;
+        if(Zivoty <= 0) {
+            cout << "Zemřel jsi. GAME OVER\n";
+            exit(0);
+        }
+    }
+    cout << "Porazil jsi " << miniBosse[0].jmeno << "! Získáváš 100 zlata.\n";
+    zlato += 100;
+
+    // Souboj s klonem
+    soubojKlonem(Zivoty, Damage, Jmeno);
+
+    cout << "Získáváš 100 zlata za poražení temného klona!\n";
+    zlato += 100;
+}
+
+void bossSilentchant(int &Zivoty, int &Damage) {
+    int hp = 300;
+    int kolo = 0;
+    int pocetSchopnosti = 0;
+    const int maxKolNasavani = 5;
+
+    cout << "Silentchant má " << hp << " HP.\n";
+
+    while(hp > 0 && Zivoty > 0) {
+        kolo++;
+        cout << "\nKolo " << kolo << " - Silentchant nasává energii.\n";
+
+        cout << "Vyber akci:\n1 - Útok\n2 - Použít schopnost\nTvůj výběr: ";
+        int volba;
+        cin >> volba;
+
+        if(volba == 1) {
+            cout << "Útočíš za " << Damage << " poškození.\n";
+            hp -= Damage;
+        } else if(volba == 2) {
+            cout << "Používáš schopnost a způsobuješ 50 poškození.\n";
+            hp -= 50;
+            pocetSchopnosti++;
+        } else {
+            cout << "Nic neděláš.\n";
+        }
+
+        if(hp <= 0) {
+            cout << "Porazil jsi Silentchanta!\n";
+            break;
+        }
+
+        if(kolo == maxKolNasavani) {
+            int dmgVybuchu = 10 * maxKolNasavani;
+            if(pocetSchopnosti >= 3) {
+                dmgVybuchu = dmgVybuchu * 3 / 2;
+                cout << "Silentchant vybíjí posílený tichý výbuch!\n";
+            } else {
+                cout << "Silentchant vybíjí tichý výbuch!\n";
+            }
+            Zivoty -= dmgVybuchu;
+            cout << "Dostal jsi " << dmgVybuchu << " poškození, zbývá ti " << (Zivoty > 0 ? Zivoty : 0) << " HP.\n";
+            if(Zivoty <= 0) {
+                cout << "Zemřel jsi na výbuch Silentchanta. GAME OVER\n";
+                exit(0);
+            }
+            kolo = 0;
+            pocetSchopnosti = 0;
         }
     }
 }
 
 int main() {
+    srand(time(0));
+
     string Jmeno;
-    int Postava, Rozhodnuti, Rozhodnuti2, Rozhodnuti3, Rozhodnuti4, Rozhodnuti5, Rozhodnuti6;
     int Zivoty = 0, Damage = 0;
+    int zlato = 0;
 
-    srand(time(0));  
-
-    cout << "Výtej v této dobrodružné hře! ";
-    cout << "\nJaké je tvé jmáno dobrodruhu? ";
+    cout << "Jak se jmenuješ? ";
     cin >> Jmeno;
-    cout << Jmeno << "\n\nZajmavé jméno, opravdu zajmavé. No tak se vydáme na toto dobrodružství, ale jsště před tím si zvol postavu!";
 
-    cout << "\nVyber si svou postavu:\n";
-    cout << "1. Válečník (Zivoty: 100, Damage: 40)\n";
-    cout << "2. Zloděj   (Zivoty: 70, Damage: 20)\n";
-    cout << "3. Lovec    (Zivoty: 85, Damage: 55)\n";
-    cout << "Zadej číslo postavy: ";
-    cin >> Postava;
-
-    switch(Postava){
-        case 1:
-            Zivoty = 100;
-            Damage = 40;
-            cout << "\nZvolil jsi Válečníka!" << endl;
-            break;
-        case 2:
-            Zivoty = 70;
-            Damage = 20;
-            cout << "\nZvolil jsi Zloděje!" << endl;
-            break;
-        case 3:
-            Zivoty = 85;
-            Damage = 55;
-            cout << "\nZvolil jsi Lovce!" << endl;
-            break;
-        default:
-            cout << "\nNeplatná volba, rozhodnu za tebe. Budeš Lovec." << endl;
-            Zivoty = 85;
-            Damage = 55;
-    }
-    cout << "\nDostali jsme se na křižovatku – levý směr vede do lesa, pravý do malé vesničky." << "\nKam se vydáme? [P=1/L=2]: ";
-    cin >> Rozhodnuti;
-
-    if (Rozhodnuti == 1) {
-        cout << "\nZajmavé rozhodnutí, jdeme do vesničky.";
-        cout << "\nVesnice vypadá opuštěně, chceš ji vyrabovat? [A=1/N=0]: ";
-        cin >> Rozhodnuti2;
-
-        if (Rozhodnuti2 == 1) {
-            cout << "\nBěhem tvého rabování se objevili vesničani s jejich iron golemem, boj byl zbytečný, byl jsi zabit."<< "\n\nGAME OVER" <<endl;
-            return 0;
-        } else {
-            cout << "\nMoudré rozhodnutí, protože se během chvilky objevili vesničani s jejich iron golemem.";
-            cout << "\nNaštěstí byli přátelští a mohl jsi pokračovat dál ve své cestě.";
-        }
-
-        cout << "\nChceš ve vesnici zůstat a pomoci místním? [A=1/N=0]: ";
-        cin >> Rozhodnuti5;
-
-        if (Rozhodnuti5 == 1) {
-            cout << "\nRozhodl ses zůstat ve vesnici a pomoci místním.";
-            cout << "\nMístní tě přijali mezi sebe a nabídli ti přístřeší a zásoby na cestu.";
-            cout << "\nPo několika dnech odpočinku se rozhodneš pokračovat dál na svou cestu.";
-
-            cout << "\nNa okraji vesnice potkáš kupce, který ti nabízí zdarma lepší zbraň. Přijmeš jeho nabídku? [A=1/N=0]: ";
-            cin >> Rozhodnuti6;
-
-            if (Rozhodnuti6 == 1) {
-                cout << "\nPřijal jsi vylepšenou zbraň! Tvá útočná síla se zvýšila.";
-                Damage += 20;
-                Zivoty += 50;
-                cout << "\nTvé životy se zvýšily o 50! Zbývá ti nyní " << Zivoty << " životů." << endl;
-            } else {
-                cout << "\nRozhodl ses ponechat svou původní výbavu a pokračovat bez nové zbraně.";
-            }
-
-        } else {
-            cout << "\nRozhodl ses opustit vesnici a vydat se dál.";
-        }
-
-        cout << "\nPo opuštění vesnice se vydáváš do hustého lesa.";
-        cout << "\nCesta je klidná, dokud tě nenapadne bandita!";
-        boj(Zivoty, Damage);
-
-        cout << "\nPo vítězství nad banditou nacházíš starou mapu ukazující skrytý poklad v horách.";
-        cout << "\nVydáváš se tedy na nebezpečnou cestu do hor...";
-
-        cout << "\nPo několika dnech narazíš na jeskyni ukrytou mezi skalami.";
-        cout << "\nU vchodu do jeskyně stojí tajemný rytíř. Varuje tě, že poklad je prokletý a strážený drakem.";
-
-        cout << "\nBez možnosti úniku vstupuješ do jeskyně. Z temnoty se vynoří drak!";
-        cout << "\nJe to obrovské monstrum s 200 životy a útočí za 35.";
-
-        int drakZivoty = 200;
-        int drakDamage = 35;
-
-        while (Zivoty > 0 && drakZivoty > 0) {
-            cout << "\nÚtočíš na draka!";
-            drakZivoty -= Damage;
-            cout << "\nZpůsobil jsi " << Damage << " poškození. Drakovi zbývá " << (drakZivoty > 0 ? drakZivoty : 0) << " HP.";
-
-            if (drakZivoty <= 0) {
-                cout << "\n\nZasazuješ poslední ránu! Drak padá k zemi a před tebou se otevírá poklad!";
-                cout << "\nNacházíš magické artefakty, zlato a legendární zbraň.";
-                Damage += 50;
-                cout << "\nStáváš se hrdinou známým po celém světě!";
-                cout << "\nAle stále na tebe čeká další dobrodružství...\n";
-                cout << "\nPo odpočinku v dračí jeskyni, plné lesku pokladu, tě probudí podivné světlo.";
-                cout << "\nMagický portál se otevřel uprostřed jeskyně. Cítíš, že tě volá... Chceš do něj vstoupit? [A=1/N=0]: ";
-                int Rozhodnuti7;
-                cin >> Rozhodnuti7;
-
-                if (Rozhodnuti7 == 1) {
-                    cout << "\nVstoupil jsi do portálu a rázem se ocitáš v tajemné krajině zvané 'Zrcadlový svět'.";
-                    cout << "\nZde vše vypadá obráceně, i tvoje zbraně a síly se zdají být zesílené, ale něco je jinak...";
-
-                    cout << "\nZ mlhy vystupuje *Temný dvojník* – jsi to ty, ale zlý!";
-                    int dvojnikZivoty = Zivoty + 30;
-                    int dvojnikDamage = Damage - 10;
-
-                    cout << "\nTemný " << Jmeno << " má " << dvojnikZivoty << " životů a útočí za " << dvojnikDamage << ".";
-
-                    while (Zivoty > 0 && dvojnikZivoty > 0) {
-                        cout << "\nÚtočíš na Temného dvojníka!";
-                        dvojnikZivoty -= Damage;
-                        cout << "\nZpůsobil jsi " << Damage << " poškození. Dvojníkovi zbývá " 
-                             << (dvojnikZivoty > 0 ? dvojnikZivoty : 0) << " HP.";
-
-                        if (dvojnikZivoty <= 0) {
-                            cout << "\n\nTvůj temný odraz se rozpadá v prach. Získáváš zpět svou plnou sílu a nové znalosti magie!";
-                            Zivoty += 30;
-                            Damage += 30;
-                            break;
-                        }
-
-                        cout << "\nTemný dvojník útočí!";
-                        Zivoty -= dvojnikDamage;
-                        cout << "\nUtrpěl jsi " << dvojnikDamage << " poškození. Zbývá ti " 
-                             << (Zivoty > 0 ? Zivoty : 0) << " HP.";
-
-                        if (Zivoty <= 0) {
-                            cout << "\n\nTvůj stín tě přemohl... Navždy zůstaneš uvězněn v Zrcadlovém světě." << "\n\nGAME OVER" << endl;
-                            return 0;
-                        }
-                    }
-
-                    cout << "\nPo poražení svého dvojníka se portál znovu otevře a přenese tě zpět na povrch.";
-                    cout << "\nJsi silnější než kdy dřív a svět před tebou je plný nových možností...";
-                } else {
-                    cout << "\nRozhodl ses portál ignorovat. Poklad odneseš zpět do civilizace, kde budeš žít v luxusu a slávě.";
-                    cout << "\nTvůj příběh se stal legendou, ale kdo ví, co se mohlo stát za tím portálem..."; //------------------------------------------------------------------------------------------
-                }
-                
-            }
-                
-            
-            cout << "\nDrak útočí!";
-            Zivoty -= drakDamage;
-            cout << "\nUtrpěl jsi " << drakDamage << " poškození. Zbývá ti " << (Zivoty > 0 ? Zivoty : 0) << " HP.";
-
-            if (Zivoty <= 0) {
-                cout << "\n\nDrak tě spálil na popel... Poklad zůstává nedotčen." << "\n\nGAME OVER" << endl;
-                return 0;
-            }
-        }
-
-    } else {
-        cout << "\nZajmavé rozhodnutí, jdeme do lesa.";
-        cout << "\nLes je tichý a ponurý, ale po chvíli slyšíš zvláštní zvuky.";
-        cout << "\nNarazíš na starého muže sedícího u ohně. Chceš se s ním promluvit? [A=1/N=0]: ";
-        cin >> Rozhodnuti3;
-
-        if (Rozhodnuti3 == 1) {
-            cout << "\nStarý muž ti nabídne jídlo a varuje tě před nebezpečím hlouběji v lese.";
-            cout << "\nZískal jsi nové informace. Pokračuješ dál a vyhýbáš se úseku s nebezpečím.";
-            
-            cout << "\nCesta je klidná, ale přes varování od starce tě nenapadne bandita!";
-            boj(Zivoty, Damage);
+    vyberPostavu(Zivoty, Damage);
     
-            cout << "\nPo vítězství nad banditou nacházíš starou mapu ukazující skrytý poklad v horách.";
-            cout <<"\nNavíc jsi u mrtvého bandity, v jeho batohu našel poušn který přidává neznámé množství životů, neváháš a rovnou ho vyžungneš ho na jeden zátah";
-            Zivoty += 50;
-            cout << "\nVydáváš se tedy na nebezpečnou cestu do hor...";
+    boj(Zivoty, Damage);
     
-            cout << "\nPo několika dnech narazíš na jeskyni ukrytou mezi skalami.";
-            cout << "\nU vchodu do jeskyně stojí tajemný rytíř. Varuje tě, že poklad je prokletý a strážený drakem.";
-    
-            cout << "\nBez možnosti úniku vstupuješ do jeskyně. Z temnoty se vynoří drak!";
-            cout << "\nJe to obrovské monstrum s 200 životy a útočí za 35.";
-    
-            int drakZivoty = 200;
-            int drakDamage = 35;
-    
-            while (Zivoty > 0 && drakZivoty > 0) {
-                cout << "\nÚtočíš na draka!";
-                drakZivoty -= Damage;
-                cout << "\nZpůsobil jsi " << Damage << " poškození. Drakovi zbývá " << (drakZivoty > 0 ? drakZivoty : 0) << " HP.";
-    
-                if (drakZivoty <= 0) {
-                    cout << "\n\nZasazuješ poslední ránu! Drak padá k zemi a před tebou se otevírá poklad!";
-                    cout << "\nNacházíš magické artefakty, zlato a legendární zbraň.";
-                    Damage += 50;
-                    cout << "\nStáváš se hrdinou známým po celém světě!";
-                    cout << "\nAle stále na tebe čeká další dobrodružství...\n"; //------------------------------------------------------------------------------------------
-                }
-    
-                cout << "\nDrak útočí!";
-                Zivoty -= drakDamage;
-                cout << "\nUtrpěl jsi " << drakDamage << " poškození. Zbývá ti " << (Zivoty > 0 ? Zivoty : 0) << " HP.";
-    
-                if (Zivoty <= 0) {
-                    cout << "\n\nDrak tě spálil na popel... Poklad zůstává nedotčen." << "\n\nGAME OVER" << endl;
-                    return 0;
-                }
-            }
-            
-        } else {
-            cout << "\nIgnoruješ starce a pokračuješ dál. Po pár krocích tě přepadne skupina banditů!";
-            cout << "\nPřiprav se na boj! Máš šanci se bránit. Bojuješ? [A=1/N=0]: ";
-            cin >> Rozhodnuti4;
+    vesnice1(Zivoty, Damage, zlato);
 
-            if (Rozhodnuti4 == 1) {
-                boj(Zivoty, Damage);
-            } else {
-                cout << "\nSnažíš se utéct, ale bandité tě rychle doženou.";
-                cout << "\nByl jsi poražen a okraden. Dobrodružství pro tebe zde končí." << "\n\nGAME OVER" << endl;
-                return 0;
-            }
-        }
+    bojVicMonstru(Zivoty, Damage, 1);
+    bojVicMonstru(Zivoty, Damage, 1);
+    bojVicMonstru(Zivoty, Damage, 2);
+    
+    soubojeMiniBosse(Zivoty, Damage, zlato, Jmeno);
 
-        cout << "\nPo vítězství nad bandity se ti podaří najít cestu ven z lesa.";
-        cout << "\nDobrodružství však stále pokračuje...\n";
-    }
+    vesnice2(Zivoty, zlato);
 
+    bojVicMonstru(Zivoty, Damage, 1);
+    bojVicMonstru(Zivoty, Damage, 2);
+    bojVicMonstru(Zivoty, Damage, 2);
+
+    vesnice1(Zivoty, Damage, zlato);
+    boj(Zivoty, Damage);
+    soubojeMiniBosse(Zivoty, Damage, zlato, Jmeno);
+
+    vesnice2(Zivoty, zlato);
+
+    bojVicMonstru(Zivoty, Damage, 2);
+    bojVicMonstru(Zivoty, Damage, 2);
+    bojVicMonstru(Zivoty, Damage, 3);
+
+    vesnice2(Zivoty, zlato);
+    boj(Zivoty, Damage);
+    vesnice1(Zivoty, Damage, zlato);
+
+    bossSilentchant(Zivoty, Damage);
+
+    cout << "\nGratulace, dokončil jsi hru!\n";
     return 0;
 }
