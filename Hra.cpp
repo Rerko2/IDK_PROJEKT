@@ -2,6 +2,8 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <thread>
+#include <chrono>
 using namespace std;
 
 void boj(int &Zivoty, int Damage) {
@@ -276,39 +278,47 @@ int main() {
     cin >> Jmeno;
 
     vyberPostavu(Zivoty, Damage);
-    
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     boj(Zivoty, Damage);
-    
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     vesnice1(Zivoty, Damage, zlato);
-
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     bojVicMonstru(Zivoty, Damage, 1);
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     bojVicMonstru(Zivoty, Damage, 1);
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     bojVicMonstru(Zivoty, Damage, 2);
-    
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     soubojeMiniBosse(Zivoty, Damage, zlato, Jmeno);
-
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     vesnice2(Zivoty, zlato);
-
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     bojVicMonstru(Zivoty, Damage, 1);
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     bojVicMonstru(Zivoty, Damage, 2);
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     bojVicMonstru(Zivoty, Damage, 2);
-
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     vesnice1(Zivoty, Damage, zlato);
     boj(Zivoty, Damage);
     soubojeMiniBosse(Zivoty, Damage, zlato, Jmeno);
-
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     vesnice2(Zivoty, zlato);
-
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     bojVicMonstru(Zivoty, Damage, 2);
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     bojVicMonstru(Zivoty, Damage, 2);
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     bojVicMonstru(Zivoty, Damage, 3);
-
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     vesnice2(Zivoty, zlato);
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     boj(Zivoty, Damage);
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     vesnice1(Zivoty, Damage, zlato);
-
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     bossSilentchant(Zivoty, Damage);
-
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     cout << "\nGratulace, dokončil jsi hru!\n";
     return 0;
 }
